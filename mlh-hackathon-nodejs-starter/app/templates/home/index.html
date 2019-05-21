@@ -1,4 +1,4 @@
-<div class="bg-gray-light border-bottom border-gray-light">
+<!-- <div class="bg-gray-light border-bottom border-gray-light">
   <div class="container text-center py-5 mb-4">
     <img src="img/logo.png" class="w-100" style="max-width:120px;" />
     <div class="mt-3 mb-4">
@@ -13,48 +13,120 @@
   <p class="lead">Edit <code>controllers/</code> to update how to receive and reply to requests.</p>
   <p class="lead">Edit <code>templates/</code> to update the layout and styling.</p>
   <p class="lead">Edit <code>models/</code> to update how the data is stored.</p>
-</div>
+</div> -->
 
 <form action="/" method="POST" name="myForm">
+
+  <p><label for="time">Hora:</label>
+    <input type="time" name="time" id="time" value='now'></p>
+
   <p><label for="age">Edad:</label>
-  <input type="number" min="1" max="99" name="age" id="age"></p>
+    <input type="number" min="1" max="99" name="age" id="age"></p>
 
   <p><label for="sex">Sexo:</label>
     <select name="sex" id="sex">
-        <option value="0">Femenino</option>
-        <option value="1">Masculino</option>
-    </select>
+      <option value="0">Masculino</option>
+      <option value="1">Femenino</option>
+    </select></p>
 
-  <p><label for="datas">Lugar:</label>
-  <select name="datas" id="datas" multiple></select>
+  <p><label for="muni">Municipio:</label>
+    <select name="muni" id="muni"></select></p>
+
+  <p><label for="barrio">Barrio:</label>
+    <select name="barrio" id="barrio"></select></p>
 
   <p><label for="day">Dia:</label>
     <select name="day" id="day">
-        <option value="0">Domingo</option>
-        <option value="1">Lunes</option>
-        <option value="2">Martes</option>
-        <option value="3">Miercoles</option>
-        <option value="4">Jueves</option>
-        <option value="5">Viernes</option>
-        <option value="6">Sabado</option>
-    </select>
+      <option value="0">Lunes</option>
+      <option value="1">Martes</option>
+      <option value="2">Miercoles</option>
+      <option value="3">Jueves</option>
+      <option value="4">Viernes</option>
+      <option value="5">Sabado</option>
+      <option value="6">Domingo</option>
+    </select></p>
 
-  <input value="Submit" type="submit" onclick="submitform()">
+  <p><label for="movilv">Movil Victima:</label>
+    <select name="movilv" id="movilv">
+      <option value="0">A PIE</option>
+      <option value="1">CONDUCTOR MOTOCICLETA</option>
+      <option value="2">PASAJERO VEHICULO</option>
+      <option value="3">CONDUCTOR VEHICULO</option>
+      <option value="4">BICICLETA</option>
+      <option value="5">PASAJERO MOTOCICLETA</option>
+      <option value="6">CONDUCTOR TAXI</option>
+      <option value="7">CONDUCTOR BUS</option>
+      <option value="8">PASAJERO BUS</option>
+      <option value="9">PASAJERO BARCO</option>
+      <option value="10">PASAJERO TAXI</option>
+      <option value="11">PASAJERO METRO</option>
+      <option value="12">TRIPULANTE AERONAVE</option>
+      <option value="13">PASAJERO AERONAVE</option>
+    </select></p>
+
+  <p><label for="movila">Movil Agresor:</label>
+    <select name="movila" id="movila">
+      <option value="0">A PIE</option>
+      <option value="1">CONDUCTOR MOTOCICLETA</option>
+      <option value="2">PASAJERO MOTOCICLETA</option>
+      <option value="3">PASAJERO VEHICULO</option>
+      <option value="4">CONDUCTOR VEHICULO</option>
+      <option value="5">CONDUCTOR TAXI</option>
+      <option value="6">PASAJERO BUS</option>
+      <option value="7">BICICLETA</option>
+      <option value="8">PASAJERO BARCO</option>
+      <option value="9">PASAJERO TAXI</option>
+      <option value="11">PASAJERO AERONAVE</option>
+      <option value="12">PASAJERO METRO</option>
+      <option value="13">CONDUCTOR BUS</option>
+      <option value="14">TRIPULANTE AERONAVE</option>
+    </select></p>
+
+  <input value="Submit" type="submit">
 </form>
 
 <script>
-$.getJSON("https://raw.githubusercontent.com/caev03/ProyectoML/master/municipios.json",function(data){
-  console.lo
-  data = data.sort(function(a, b){
-    // return a.name - b.name;
-    if(a.name < b.name) { return -1; }
-    if(a.name > b.name) { return 1; }
-    return 0;
+  $.getJSON("https://raw.githubusercontent.com/caev03/ProyectoML/master/municipios.json", function (data) {
+    data = data.sort(function (a, b) {
+      // return a.name - b.name;
+      if (a.name < b.name) { return -1; }
+      if (a.name > b.name) { return 1; }
+      return 0;
+    });
+    console.log(data)
+    var $select = $('#muni');
+    $.each(data, function (i, val) {
+      $select.append($('<option />', { value: val["cod"], text: val["name"] }));
+    });
+  })
+
+  $("#muni").change(function () {
+    var selectedVal = $(this).val();
+    $.getJSON("https://raw.githubusercontent.com/caev03/ProyectoML/master/barrios.json", function (data) {
+      console.log(selectedVal)
+      data = data.filter(barrio => barrio["code_dane"] == selectedVal);
+      data = data.sort(function (a, b) {
+        // return a.name - b.name;
+        if (a.name < b.name) { return -1; }
+        if (a.name > b.name) { return 1; }
+        return 0;
+      });
+      console.log(data)
+      var $select = $('#barrio');
+      $select.empty();
+      $.each(data, function (i, val) {
+        $select.append($('<option />', { value: val["cod"], text: val["name"] }));
+      });
+    })
+  })
+  $(function () {
+    var d = new Date(),
+      h = d.getHours(),
+      m = d.getMinutes();
+    if (h < 10) h = '0' + h;
+    if (m < 10) m = '0' + m;
+    $('input[type="time"][value="now"]').each(function () {
+      $(this).attr({ 'value': h + ':' + m });
+    });
   });
-  console.log(data)
-  var $select = $('#datas');
-  $.each(data, function(i, val){
-    $select.append($('<option />', { value: val["cod"], text: val["name"] }));
-  });
-})
 </script>

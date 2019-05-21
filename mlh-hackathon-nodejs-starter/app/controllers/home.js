@@ -125,7 +125,21 @@ router.get("/", function(req, res) {
 
 router.post("/", function(req, res){
     console.log(req.body);      // your JSON
-    console.log(0.0000105516397248132*(parseInt(req.body.datas)-5001))
+    var hora = paseInt(req.body.time.replace(":",""))/2359;
+    var codDane = 0.0000105516397248132*(parseInt(req.body.muni)-5001)
+    var barrio = parseInt(req.body.barrio)
+    var edad = parseInt(req.body.age)
+    var dia = parseInt(req.body.day)
+    var movila = parseInt(req.body.movila)
+    var movilv = parseInt(req.body.movilv)
+    var features = [hora,barrio,codDane,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,edad]
+    features[67+sexo]=1
+    features[3+dia]=1
+    features[37+movila]=1
+    features[52+movilv]=1
+
+    
+    console.log(features);
     res.send(req.body);    // echo the result back
 })
 
