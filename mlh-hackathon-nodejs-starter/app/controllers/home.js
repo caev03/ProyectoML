@@ -103,9 +103,15 @@ router.get("/", function(req, res) {
   const bias = [[-2.3595882098369594, 0.8350378995279503, -0.18161275727680867, -0.40064885023650926, 3.218682502967455], [2.2503105410523023, -0.6860902193988101, -0.5677692276958485, -0.30955128553774497], [-14.594524974934668, 1.4772376316261882, 8.057661897697225, -0.1367670626791799, 0.8023819024987912, 3.5939837574411224]];
   // Prediction:
   var clf = new MLPClassifier('relu', 'softmax', layers, weights, bias);
-  var prediction = clf.predict(features);
-  console.log(prediction+" "+clase[prediction]);
+//   var prediction = clf.predict(features);
+//   console.log(prediction+" "+clase[prediction]);
   res.render("home/index");
 });
+
+router.post("/", function(req, res){
+    console.log(req.body);      // your JSON
+    console.log(0.0000105516397248132*(parseInt(req.body.datas)-5001))
+    res.send(req.body);    // echo the result back
+})
 
 module.exports = router;
