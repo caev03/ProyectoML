@@ -26,7 +26,7 @@
     </select>
 
   <p><label for="datas">Lugar:</label>
-  <select name="datas" id="datas"></select>
+  <select name="datas" id="datas" multiple></select>
 
   <p><label for="day">Dia:</label>
     <select name="day" id="day">
@@ -44,6 +44,14 @@
 
 <script>
 $.getJSON("https://raw.githubusercontent.com/caev03/ProyectoML/master/municipios.json",function(data){
+  console.lo
+  data = data.sort(function(a, b){
+    // return a.name - b.name;
+    if(a.name < b.name) { return -1; }
+    if(a.name > b.name) { return 1; }
+    return 0;
+  });
+  console.log(data)
   var $select = $('#datas');
   $.each(data, function(i, val){
     $select.append($('<option />', { value: val["cod"], text: val["name"] }));
