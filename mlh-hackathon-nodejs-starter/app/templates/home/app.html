@@ -38,7 +38,7 @@
     <script src="https://d3js.org/d3.v3.min.js"></script>
     <script>
     
-    var width = 1400,
+    var width = 1110,
         height = 700,
         centered;
     
@@ -89,7 +89,7 @@
       .attr('y', 45);
     
     // Load map data
-    d3.json('https://raw.githubusercontent.com/caev03/ProyectoML/master/municipios.json/colombia.geo.json', function(error, mapData) {
+    d3.json('https://raw.githubusercontent.com/caev03/ProyectoML/master/colombia.geo.json', function(error, mapData) {
       var features = mapData.features;
     
       // Update color scale domain based on data

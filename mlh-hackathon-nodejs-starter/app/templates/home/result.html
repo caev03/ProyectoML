@@ -1,7 +1,8 @@
 <br>
-<br>
 <div class="container">
-{{#each data as |item|}}
-{{> response item=item }}</p>
-{{/each}}
+    <div class="card-columns">
+        {{#each data as |item|}}
+        {{> response item=item key=@key }}
+        {{/each}}
+    </div>
 </div>

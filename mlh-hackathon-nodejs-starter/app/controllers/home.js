@@ -115,12 +115,12 @@ router.post("/", function (req, res) {
   const bias = [[1.5252783259248845, 0.6998792186297506, -0.21423196593650307, 0.2611281570952467, -0.10379073542997866], [0.9220342047094882, -0.35723011947329125, -0.6344030737537659, 1.6212858850655012], [6.741134387913518, -11.54223330182336, -0.795288507099331, -5.449554604420343, 2.8580161763402985, 11.662602239765167]];
   var clf = new MLPClassifier('relu', 'softmax', layers, weights, bias);
   var arma = ["ARMA BLANCA / CORTOPUNZANTE","SIN EMPLEO DE ARMAS","NO REPORTADO","ARMA DE FUEGO","CONTUNDENTES","ESCOPOLAMINA","CUERDA/SOGA/CADENA","BOLSA PLASTICA","CINTAS/CINTURON","ARTEFACTO EXPLOSIVO/CARGA DINAMITA","GRANADA DE MANO","COMBUSTIBLE","ALMOHADA","ARTEFACTO INCENDIARIO","MINA ANTIPERSONA","SUSTANCIAS TOXICAS","MOTO BOMBA","PRENDAS DE VESTIR","QUIMICOS","LLAVE MAESTRA","PERRO","PALANCAS","JERINGA","-","VEHICULO","MOTO","BICICLETA"]
-  var response = []
+  var response = {"Amenaza":[], "Homicidio":[], "Hurto":[], "Hurto_Vehi":[], "Hurto_Moto":[], "Lesiones_acc":[]}
   for (var i = 10; i < 36; i++) {
     var array = features.slice(0)
     array[i] = 1
     prediction = clf.predict(array);
-    response[i-10]={arma: arma[i-10],predi:clase[prediction]}
+    response[clase[prediction]].push(arma[i-10])
     console.log(i+" "+prediction + " " + clase[prediction]);
   }
   res.render("home/result", {data: response});    // echo the result back
