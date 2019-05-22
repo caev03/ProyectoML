@@ -15,3 +15,12 @@
   display: inline-block;
   vertical-align: text-top;
 }
+
+body {
+  font-size: 1.5rem !important;
+}
+
+.form-control {
+  font-size: 1.5rem !important;
+  height: calc(3rem + 2px);
+}
