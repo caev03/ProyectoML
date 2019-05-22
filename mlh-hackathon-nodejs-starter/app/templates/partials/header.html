@@ -9,31 +9,14 @@
       <ul class="navbar-nav ml-auto">
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            Tutorials
+            Acciones
           </a>
           <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-            <a class="dropdown-item" href="/tutorial/requesting">
-              Requesting Data
+            <a class="dropdown-item" href="/pred">
+              Predecir posibles Incidentes
             </a>
           </div>
         </li>
-        {{#if session.user}}
-          <li class="nav-item p-2 pr-3">
-            <img src="{{ session.user.avatar_url }}" class="rounded mr-2" style="width:24px;height:24px;" />
-            {{ session.user.username }}
-          </li>
-          <li class="nav-item">
-            <a class="nav-link text-inherit" href="/auth/logout">
-              Logout
-            </a>
-          </li>
-        {{else}}
-          <li class="nav-item">
-            <a class="nav-link text-inherit" href="/auth/login/github">
-              Login with GitHub
-            </a>
-          </li>
-        {{/if}}
       </ul>
     </div>
   </div>
